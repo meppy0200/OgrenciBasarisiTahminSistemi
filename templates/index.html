@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Öğrenci Başarı Tahmin Sistemi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 Öğrenci Başarı Tahmin Sistemi</h1>
+            <p>Makine öğrenmesi ile öğrenci performansını tahmin edin</p>
+        </header>
+
+        <main>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon">🔮</div>
+                    <h3>Başarı Tahmini</h3>
+                    <p>Öğrenci özelliklerine göre akademik başarı tahmini yapın</p>
+                    <a href="/predict" class="btn btn-primary">Tahmin Yap</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">📊</div>
+                    <h3>Veri Analizi</h3>
+                    <p>Öğrenci verilerini keşfedin ve istatistikleri görüntüleyin</p>
+                    <a href="/explore" class="btn btn-secondary">Verileri İncele</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <h3>Özellik Önemleri</h3>
+                    <p>Hangi faktörlerin başarıyı en çok etkilediğini görün</p>
+                    <a href="/feature_importance" class="btn btn-accent">Önemli Faktörler</a>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h2>Sistem Hakkında</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h4>🤖 Algoritma</h4>
+                        <p>Random Forest sınıflandırma algoritması kullanılmıştır</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>📈 Veri</h4>
+                        <p>1000 öğrencinin demografik ve akademik verileri</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>🎯 Hedef</h4>
+                        <p>Ortalama 60+ puan alan öğrenciler "başarılı" olarak sınıflandırılır</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>🔍 Özellikler</h4>
+                        <p>Cinsiyet, etnik köken, ebeveyn eğitimi, öğle yemeği, hazırlık kursu</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; Ostim Teknik Üniversitesi</p>
+        </footer>
+    </div>
+</body>
+</html>

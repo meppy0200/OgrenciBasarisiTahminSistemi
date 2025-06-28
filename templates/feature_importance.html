@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Özellik Önemleri</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 Özellik Önemleri</h1>
+            <p>Hangi faktörlerin öğrenci başarısını en çok etkilediğini görün</p>
+        </header>
+
+        <main>
+            <div class="importance-section">
+                <div class="importance-explanation">
+                    <h3>📈 Analiz Sonuçları</h3>
+                    <p>Aşağıdaki liste, Random Forest algoritmasının belirlediği özellik önemlerini göstermektedir. 
+                       Yüksek değerler, o özelliğin başarı tahmininde daha etkili olduğunu gösterir.</p>
+                </div>
+
+                <div class="importance-list">
+                    {% for feature in features %}
+                    <div class="importance-item">
+                        <div class="importance-header">
+                            <span class="importance-rank">#{{ loop.index }}</span>
+                            <span class="importance-name">{{ feature.feature }}</span>
+                            <span class="importance-score">{{ "%.4f"|format(feature.importance) }}</span>
+                        </div>
+                        <div class="importance-bar">
+                            <div class="importance-fill" style="width: {{ (feature.importance / features[0].importance * 100) }}%"></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="importance-insights">
+                    <h3>💡 Önemli Bulgular</h3>
+                    <div class="insights-grid">
+                        <div class="insight-card">
+                            <h4>🏆 En Etkili Faktör</h4>
+                            <p>{{ features[0].feature }} özelliği başarıyı etkileyen en önemli faktördür.</p>
+                        </div>
+                        <div class="insight-card">
+                            <h4>📊 Model Performansı</h4>
+                            <p>Random Forest algoritması bu özellikler kullanarak yüksek doğrulukla tahmin yapabilmektedir.</p>
+                        </div>
+                        <div class="insight-card">
+                            <h4>🔍 Kategorik Dönüşüm</h4>
+                            <p>Kategorik değişkenler one-hot encoding ile sayısal değerlere dönüştürülmüştür.</p>
+                        </div>
+                        <div class="insight-card">
+                            <h4>🎓 Eğitim Etkisi</h4>
+                            <p>Ebeveyn eğitim seviyesi ve hazırlık kursu gibi faktörler öğrenci başarısında kritik rol oynamaktadır.</p>
+                        </div>
+                        <div class="insight-card">
+                            <h4>👥 Demografik Faktörler</h4>
+                            <p>Cinsiyet ve etnik köken gibi demografik özellikler de başarıyı etkilemektedir.</p>
+                        </div>
+                        <div class="insight-card">
+                            <h4>🍽️ Sosyoekonomik Durum</h4>
+                            <p>Öğle yemeği durumu sosyoekonomik seviyenin bir göstergesi olarak başarıyı etkileyebilir.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="model-info">
+                    <h3>🤖 Model Bilgileri</h3>
+                    <div class="model-details">
+                        <div class="model-detail">
+                            <strong>Algoritma:</strong> Random Forest Classifier
+                        </div>
+                        <div class="model-detail">
+                            <strong>Toplam Özellik:</strong> {{ features|length }}
+                        </div>
+                        <div class="model-detail">
+                            <strong>Hedef Değişken:</strong> Başarı (Ortalama ≥ 60)
+                        </div>
+                        <div class="model-detail">
+                            <strong>Encoding:</strong> One-Hot Encoding
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="navigation">
+                <a href="/" class="btn btn-secondary">🏠 Ana Sayfa</a>
+                <a href="/predict" class="btn btn-primary">🔮 Tahmin Yap</a>
+                <a href="/explore" class="btn btn-accent">📊 Veri Analizi</a>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

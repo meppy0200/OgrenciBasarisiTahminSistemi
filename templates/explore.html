@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veri Analizi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Veri Analizi ve İstatistikler</h1>
+            <p>Öğrenci verileri üzerinde detaylı analiz sonuçları</p>
+        </header>
+
+        <main>
+            <div class="stats-overview">
+                <div class="stat-card">
+                    <div class="stat-number">{{ stats.total_students }}</div>
+                    <div class="stat-label">Toplam Öğrenci</div>
+                </div>
+                <div class="stat-card success">
+                    <div class="stat-number">{{ stats.success_rate }}%</div>
+                    <div class="stat-label">Başarı Oranı</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">{{ stats.avg_math }}</div>
+                    <div class="stat-label">Ortalama Matematik</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">{{ stats.avg_reading }}</div>
+                    <div class="stat-label">Ortalama Okuma</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">{{ stats.avg_writing }}</div>
+                    <div class="stat-label">Ortalama Yazma</div>
+                </div>
+            </div>
+
+            <div class="analysis-grid">
+                <div class="analysis-card">
+                    <h3>👤 Cinsiyet Dağılımı</h3>
+                    <div class="distribution">
+                        {% for gender, count in stats.gender_dist.items() %}
+                        <div class="dist-item">
+                            <span class="dist-label">{{ gender.title() }}:</span>
+                            <span class="dist-value">{{ count }}</span>
+                            <div class="dist-bar">
+                                <div class="dist-fill" style="width: {{ (count / stats.total_students * 100) }}%"></div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="analysis-card">
+                    <h3>🌍 Etnik Köken Dağılımı</h3>
+                    <div class="distribution">
+                        {% for race, count in stats.race_dist.items() %}
+                        <div class="dist-item">
+                            <span class="dist-label">{{ race }}:</span>
+                            <span class="dist-value">{{ count }}</span>
+                            <div class="dist-bar">
+                                <div class="dist-fill" style="width: {{ (count / stats.total_students * 100) }}%"></div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="analysis-card">
+                    <h3>🎓 Ebeveyn Eğitim Seviyesi</h3>
+                    <div class="distribution">
+                        {% for edu, count in stats.education_dist.items() %}
+                        <div class="dist-item">
+                            <span class="dist-label">{{ edu.title() }}:</span>
+                            <span class="dist-value">{{ count }}</span>
+                            <div class="dist-bar">
+                                <div class="dist-fill" style="width: {{ (count / stats.total_students * 100) }}%"></div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="analysis-card">
+                    <h3>🍽️ Öğle Yemeği Durumu</h3>
+                    <div class="distribution">
+                        {% for lunch, count in stats.lunch_dist.items() %}
+                        <div class="dist-item">
+                            <span class="dist-label">
+                                {% if lunch == 'standard' %}Normal
+                                {% else %}Ücretsiz/İndirimli
+                                {% endif %}:
+                            </span>
+                            <span class="dist-value">{{ count }}</span>
+                            <div class="dist-bar">
+                                <div class="dist-fill" style="width: {{ (count / stats.total_students * 100) }}%"></div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="analysis-card">
+                    <h3>📚 Sınav Hazırlık Kursu</h3>
+                    <div class="distribution">
+                        {% for prep, count in stats.prep_dist.items() %}
+                        <div class="dist-item">
+                            <span class="dist-label">
+                                {% if prep == 'completed' %}Tamamlandı
+                                {% else %}Katılmadı
+                                {% endif %}:
+                            </span>
+                            <span class="dist-value">{{ count }}</span>
+                            <div class="dist-bar">
+                                <div class="dist-fill" style="width: {{ (count / stats.total_students * 100) }}%"></div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="navigation">
+                <a href="/" class="btn btn-secondary">🏠 Ana Sayfa</a>
+                <a href="/predict" class="btn btn-primary">🔮 Tahmin Yap</a>
+                <a href="/feature_importance" class="btn btn-accent">🎯 Özellik Önemleri</a>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

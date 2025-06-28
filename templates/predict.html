@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Başarı Tahmini</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔮 Öğrenci Başarı Tahmini</h1>
+            <p>Aşağıdaki bilgileri girerek öğrenci başarısını tahmin edebilirsiniz</p>
+        </header>
+
+        <main>
+            <form method="POST" class="prediction-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="gender">👤 Cinsiyet:</label>
+                        <select name="gender" id="gender" required>
+                            <option value="">Seçiniz...</option>
+                            <option value="female">Kadın</option>
+                            <option value="male">Erkek</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="race">🌍 Etnik Köken:</label>
+                        <select name="race" id="race" required>
+                            <option value="">Seçiniz...</option>
+                            <option value="group A">Grup A</option>
+                            <option value="group B">Grup B</option>
+                            <option value="group C">Grup C</option>
+                            <option value="group D">Grup D</option>
+                            <option value="group E">Grup E</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="parental_education">🎓 Ebeveyn Eğitim Seviyesi:</label>
+                        <select name="parental_education" id="parental_education" required>
+                            <option value="">Seçiniz...</option>
+                            <option value="some high school">Lise (Tamamlanmamış)</option>
+                            <option value="high school">Lise</option>
+                            <option value="some college">Üniversite (Tamamlanmamış)</option>
+                            <option value="associate's degree">Ön Lisans</option>
+                            <option value="bachelor's degree">Lisans</option>
+                            <option value="master's degree">Yüksek Lisans</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lunch">🍽️ Öğle Yemeği Durumu:</label>
+                        <select name="lunch" id="lunch" required>
+                            <option value="">Seçiniz...</option>
+                            <option value="standard">Normal</option>
+                            <option value="free/reduced">Ücretsiz/İndirimli</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="test_prep">📚 Sınav Hazırlık Kursu:</label>
+                        <select name="test_prep" id="test_prep" required>
+                            <option value="">Seçiniz...</option>
+                            <option value="completed">Tamamlandı</option>
+                            <option value="none">Katılmadı</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-submit">
+                    <button type="submit" class="btn btn-primary">🔮 Tahmin Et</button>
+                </div>
+            </form>
+
+            {% if result %}
+            <div class="result-section">
+                <div class="result-card {% if 'Başarılı' in result %}success{% else %}failure{% endif %}">
+                    <h3>📊 Tahmin Sonucu</h3>
+                    <div class="result-main">{{ result }}</div>
+                    {% if probability %}
+                    <div class="probability">
+                        <span class="probability-label">Başarı Olasılığı:</span>
+                        <span class="probability-value">{{ probability }}%</span>
+                    </div>
+                    <div class="probability-bar">
+                        <div class="probability-fill" style="width: {{ probability }}%"></div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="navigation">
+                <a href="/" class="btn btn-secondary">🏠 Ana Sayfa</a>
+                <a href="/explore" class="btn btn-accent">📊 Veri Analizi</a>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
